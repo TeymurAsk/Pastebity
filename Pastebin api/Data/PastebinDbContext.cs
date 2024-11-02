@@ -8,6 +8,6 @@ namespace Pastebin_api.Data
         {
 
         }
-        public List<TextBlock> TextBlocks { get; set; }
+        public DbSet<TextBlock> TextBlocks { get; set; }
     }
 }

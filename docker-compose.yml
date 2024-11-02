@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  pastebin1:
+    build:
+      context: ./Pastebinapi
+      dockerfile: Dockerfile # Reference to your Dockerfile
+    container_name: pastebin1
+    ports:
+      - "5001:80"             # Map internal port 80 to external 5001
+
+  pastebin2:
+    build:
+      context: ./Pastebinapi
+      dockerfile: Dockerfile
+    container_name: pastebin2
+    ports:
+      - "5002:80"             # Map internal port 80 to external 5002
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"               # Expose NGINX on port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf   # Bind custom NGINX config
+    depends_on:
+      - pastebin1
+      - pastebin2

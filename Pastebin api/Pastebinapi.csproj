@@ -7,7 +7,8 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <RootNamespace>Pastebin_api</RootNamespace>
     <UserSecretsId>2d9974c2-e730-4cc3-bc47-2ccb315b8f32</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
