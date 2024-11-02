@@ -8,11 +8,10 @@ namespace Pastebin_api.Data
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string Text { get; set; }
+        [StringLength(80)]
+        public string Link { get; set; } = string.Empty;
         [Required]
-        [StringLength(50)]
-        public string Title { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
     }
 }
