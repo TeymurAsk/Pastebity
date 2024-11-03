@@ -10,15 +10,24 @@ namespace Pastebin_api.Controllers
     public class S3Controller : ControllerBase
     {
         private readonly S3Service _s3Service;
-        public S3Controller(S3Service s3Service)
+        private readonly RedisService _redisService;
+        public S3Controller(S3Service s3Service, RedisService redisService)
         {
             _s3Service = s3Service;
+            _redisService = redisService;
         }
         // GET api/<S3Controller>/5
         [HttpGet("{key}")]
         public async Task<string> Get(string key)
         {
-            return await _s3Service.GetTextAsync(key);
+            var text = _redisService.GetData<string>($"text{key}");
+            if (text != null)
+            {
+                return text;
+            }
+            text = await _s3Service.GetTextAsync(key);
+            _redisService.SetData($"text{key}", text);
+            return text;
         }
 
         // POST api/<S3Controller>

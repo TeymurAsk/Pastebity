@@ -17,7 +17,14 @@ builder.Services.AddScoped<S3Service>();
 builder.Services.AddScoped<HashGenerator>();
 builder.Services.AddScoped<S3Controller>();
 builder.Services.AddScoped<MainController>();
+builder.Services.AddScoped<RedisService>();
 
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConn");
+    options.InstanceName = "Pastebin_";
+});
 
 builder.Services.AddDbContext<PastebinDbContext>(options =>
 {
