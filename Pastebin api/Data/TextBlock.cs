@@ -6,10 +6,6 @@ namespace Pastebin_api.Data
     public class TextBlock
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Required]
         [StringLength(80)]
         public string Link { get; set; } = string.Empty;
         [Required]

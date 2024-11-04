@@ -15,11 +15,13 @@ namespace Pastebin_api.Controllers
         private readonly S3Controller _s3controller;
         private readonly HashGenerator _hashGenerator;
         private readonly PastebinDbContext _context;
-        public MainController(S3Controller s3controller, HashGenerator hashgenerator, PastebinDbContext dbContext)
+        private readonly RedisService _redisService;
+        public MainController(S3Controller s3controller, HashGenerator hashgenerator, PastebinDbContext dbContext, RedisService redisService)
         {
             _s3controller = s3controller;
             _hashGenerator = hashgenerator;
             _context = dbContext;
+            _redisService = redisService;
         }
         [HttpGet("{key}")]
         public async Task<string> Get(string key)
@@ -37,8 +39,15 @@ namespace Pastebin_api.Controllers
             block.ExpirationDate = DateTime.UtcNow.AddHours(hours);
             _context.TextBlocks.Add(block);
             _context.SaveChanges();
+            _redisService.ScheduleTask(key, DateTime.UtcNow.AddHours(hours));
             _s3controller.Post(key, content);
             return key;
+        }
+        [HttpDelete]
+        public void Delete(string key)
+        {
+            _context.TextBlocks.Remove(_context.TextBlocks.Find(key));
+            _context.SaveChanges();
         }
     }
 }

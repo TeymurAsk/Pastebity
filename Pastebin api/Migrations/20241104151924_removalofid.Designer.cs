@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pastebin_api.Data;
@@ -11,9 +12,11 @@ using Pastebin_api.Data;
 namespace Pastebin_api.Migrations
 {
     [DbContext(typeof(PastebinDbContext))]
-    partial class PastebinDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241104151924_removalofid")]
+    partial class removalofid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
