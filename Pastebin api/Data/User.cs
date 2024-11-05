@@ -6,6 +6,7 @@ namespace Pastebin_api.Data
     public class User
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -19,6 +20,6 @@ namespace Pastebin_api.Data
         public string PasswordHash { get; set; }
 
         [Column("TextblocksList")]
-        public List<string> TextblocksList { get; set; }
+        public List<string>? TextblocksList { get; set; }
     }
 }

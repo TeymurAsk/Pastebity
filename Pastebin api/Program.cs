@@ -1,3 +1,4 @@
+using Amazon.Extensions.NETCore.Setup;
 using Amazon.S3;
 using Microsoft.EntityFrameworkCore;
 using Pastebin_api.Controllers;
@@ -13,13 +14,28 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// Amazor S3 storage
+
 builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddScoped<S3Service>();
-builder.Services.AddScoped<HashGenerator>();
+
+// Controllers
+
 builder.Services.AddScoped<S3Controller>();
 builder.Services.AddScoped<MainController>();
+builder.Services.AddScoped<AuthController>();
+
+// Services for authentication
+builder.Services.AddScoped<HashGenerator>();
+builder.Services.AddScoped<JWTProvider>();
+builder.Services.AddScoped<AuthService>();
+
+//Redis cache and db services
 builder.Services.AddScoped<RedisService>();
 builder.Services.AddScoped<RedisCleanupWorker>();
+
+// That's needed for some reason (don't know why it's not built-in)
+builder.Services.AddHttpContextAccessor();
 
 // Redis Services (first cache, then database for tasks)
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -33,6 +49,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 });
 // ----------------------------------------------------
 
+// yeah, I don't know what to say about that...
+builder.Services.Configure<JWTOptions>(builder.Configuration.GetSection(nameof(JWTOptions)));
 
 builder.Services.AddDbContext<PastebinDbContext>(options =>
 {
@@ -52,6 +70,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
