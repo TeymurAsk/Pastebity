@@ -9,5 +9,6 @@ namespace Pastebin_api.Data
 
         }
         public DbSet<TextBlock> TextBlocks { get; set; }
+        public DbSet<TextBlock> Users { get; set; }
     }
 }
