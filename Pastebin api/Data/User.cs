@@ -10,7 +10,6 @@ namespace Pastebin_api.Data
 
         [Required]
         [StringLength(100)]
-        [EmailAddress]
         [Column("Email")]
         public string Email { get; set; }
 
@@ -19,7 +18,7 @@ namespace Pastebin_api.Data
         [Column("PasswordHash")]
         public string PasswordHash { get; set; }
 
-        [Column("Textblocks")]
+        [Column("TextblocksList")]
         public List<string> TextblocksList { get; set; }
     }
 }
