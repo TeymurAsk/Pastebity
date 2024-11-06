@@ -7,6 +7,7 @@ using Pastebin_api.Data;
 using Pastebin_api.Extensions;
 using Pastebin_api.Services;
 using StackExchange.Redis;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo 
+    { 
+        Title = "Pastebin API", 
+        Version = "v1",
+        Description = "An API to perform Pastebin operations(login or register beforehand)",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "Creator",
+            Email = "teymurasgar@gmail.com",
+        }
+    });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 // Amazor S3 storage
 
 builder.Services.AddAWSService<IAmazonS3>();
@@ -73,7 +90,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pastebin API V1");
+    });
 }
 
 app.UseHttpsRedirection();

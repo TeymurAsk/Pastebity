@@ -26,13 +26,34 @@ namespace Pastebin_api.Controllers
             _context = dbContext;
             _redisService = redisService;
         }
+        /// <summary>
+        /// Gets the textblock content from S3 storage using metadata (key)
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>The string of content</returns>
         [HttpGet("{key}")]
         public async Task<string> Get(string key)
         {
             return await _s3controller.Get(key);
         }
-
+        /// <summary>
+        /// Create a textblock with the expiration time (amount of hours from now when it will be removed)
+        /// </summary>
+        /// <param name="key"></param>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     POST api/Main
+        ///     {
+        ///         "content": "That's a sample text for the content field.",
+        ///         "hours": 24,
+        ///     }
+        /// </remarks>
+        /// <returns>The key for the content</returns>
+        /// <response code="401">Please use Login endpoint or create a new user</response>
         // POST api/<MainController>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         [HttpPost]
         public string Post(string content, int hours)
         {
@@ -61,6 +82,15 @@ namespace Pastebin_api.Controllers
             
             return key;
         }
+        /// <summary>
+        /// Deletes an textblock and all info about it using key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <response code="500">There is no such key</response>
+        /// <response code="401">Please use Login endpoint or create a new user</response>
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(500)]
         [HttpDelete]
         public void Delete(string key)
         {
