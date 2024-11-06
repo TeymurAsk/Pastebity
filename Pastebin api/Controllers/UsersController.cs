@@ -9,6 +9,7 @@ namespace Pastebin_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly PastebinDbContext _context;
@@ -18,7 +19,7 @@ namespace Pastebin_api.Controllers
             _context = context;
 
         }
-        [HttpGet("{email}")]
+        [HttpGet("/api/Users/GetByEmail/{email}")]
         public User GetByEmail(string email)
         {
             return _context.Users.SingleOrDefault(u => u.Email == email);
@@ -51,11 +52,9 @@ namespace Pastebin_api.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User user)
+        public void Put(int id, string textblock)
         {
-            _context.Users.Find(id).Email = user.Email;
-            _context.Users.Find(id).PasswordHash = user.PasswordHash;
-            _context.Users.Find(id).TextblocksList = user.TextblocksList;
+            _context.Users.Find(id).TextblocksList.Add(textblock);
             _context.SaveChanges();
         }
 

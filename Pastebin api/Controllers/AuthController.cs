@@ -37,7 +37,7 @@ namespace Pastebin_api.Controllers
             {
                 Email = email,
                 PasswordHash = _hashGenerator.Generate(password),
-                TextblocksList = null,
+                TextblocksList = new List<string>(),
             };
             if (newuser == null)
             {

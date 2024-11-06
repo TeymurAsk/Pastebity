@@ -1,8 +1,10 @@
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.S3;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Pastebin_api.Controllers;
 using Pastebin_api.Data;
+using Pastebin_api.Extensions;
 using Pastebin_api.Services;
 using StackExchange.Redis;
 
@@ -58,6 +60,12 @@ builder.Services.AddDbContext<PastebinDbContext>(options =>
 });
 // Registration of backgroud worker
 builder.Services.AddHostedService<RedisCleanupWorker>();
+
+// Register API extensio
+builder.Services.AddApiAuthentication(
+    builder.Services.BuildServiceProvider().GetRequiredService<IOptions<JWTOptions>>()
+);
+
 
 var app = builder.Build();
 
