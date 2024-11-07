@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pastebin_api.Data;
 using Pastebin_api.Services;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace Pastebin_api.Controllers
 {
