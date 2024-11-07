@@ -1,5 +1,5 @@
 # Pastebin api
-This project is an API that replicates core functionality of [Link](https://pastebin.com/)Pastebin. It allows users to create, store, and share text blocks via unique links, with additional features for caching and data expiration management.
+This project is an API that replicates core functionality of [Pastebin](https://pastebin.com/). It allows users to create, store, and share text blocks via unique links, with additional features for caching and data expiration management.
 ## Features
 * **Text Storage and Sharing**: Users can create and retrieve text blocks by unique links.
 * **Link and Password Hashing**: Uses secure hashing algorithms for generating links and storing password hashes.
