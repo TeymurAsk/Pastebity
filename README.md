@@ -28,7 +28,7 @@ Clone the repo to get access to the code and provide in you IDE.
 
 ## Video Example
 
-[![Watch the video](https://raw.githubusercontent.com/TeymurAsk/Video-Embed/main/Pastebin-thumbnai.JPG)](https://raw.githubusercontent.com/TeymurAsk/Video-Embed/main/2024-11-0719-03-39.mkv)
+[![Watch the video](https://raw.githubusercontent.com/TeymurAsk/Video-Embed/main/Pastebin-thumbnai.JPG)](https://raw.githubusercontent.com/TeymurAsk/Video-Embed/main/Pastebin.mkv)
 
 
 
