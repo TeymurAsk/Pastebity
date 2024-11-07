@@ -11,17 +11,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Pastebin api/Pastebin api.csproj", "Pastebin api/"]
-RUN dotnet restore "./Pastebin api/./Pastebin api.csproj"
+COPY ["Pastebinapi/Pastebinapi.csproj", "Pastebinapi/"]
+RUN dotnet restore "./Pastebinapi/./Pastebinapi.csproj"
 COPY . .
-WORKDIR "/src/Pastebin api"
-RUN dotnet build "./Pastebin api.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+WORKDIR "/src/Pastebinapi"
+RUN dotnet build "./Pastebinapi.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Pastebin api.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Pastebinapi.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Pastebin api.dll"]
+ENTRYPOINT ["dotnet", "Pastebinapi.dll"]

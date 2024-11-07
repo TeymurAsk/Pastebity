@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <RootNamespace>Pastebin_api</RootNamespace>
+    <RootNamespace>Pastebinapi</RootNamespace>
     <UserSecretsId>2d9974c2-e730-4cc3-bc47-2ccb315b8f32</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>

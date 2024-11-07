@@ -31,8 +31,8 @@ namespace Pastebin_api.Controllers
         /// 
         ///     POST api/Auth/login
         ///     {
-        ///         "email": "testemail@gmail.com",
-        ///         "password": "testpassword",
+        ///         "email": "admin@gmail.com",
+        ///         "password": "admin",
         ///     }
         /// </remarks>
         /// <returns>The key for the content</returns>
@@ -51,10 +51,10 @@ namespace Pastebin_api.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     POST api/Auth/login
+        ///     POST api/Auth/register
         ///     {
-        ///         "email": "testemail@gmail.com",
-        ///         "password": "testpassword",
+        ///         "email": "admin@gmail.com",
+        ///         "password": "admin",
         ///     }
         /// </remarks>
         /// <returns>The key for the content</returns>
