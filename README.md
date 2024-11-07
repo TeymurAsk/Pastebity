@@ -14,7 +14,6 @@ This project is an API that replicates core functionality of [Link]Pastebin(http
 * **Docker**: Manages Redis instances locally or in production environments
 
 ## Getting Started
----
 
 ### Clone the repository
 
